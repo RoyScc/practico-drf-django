@@ -6,16 +6,16 @@ from .models import Paciente
 # También se encarga de validar datos, y dar acceso a otras utilidades del orm como el .save()
 
 class PacienteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Paciente
-        fields = '__all__'  #trae todos los datos de la BD y cconvierte a JSON
-
-# serializer anidado para las Recetas de un Paciente
-class RecetasSerializer(serializers.ModelSerializer):
-    recetas = PacienteSerializer(read_only=True) # se pasa el serializer anidado de la receta
+    recetas = RecetaSerializer(many=True, read_only=True)
 
     class Meta:
         model = Paciente
         fields = '__all__'
 
-    read_only_fields = ('paciente','id')
+    
+
+# serializer anidado para las Recetas de un Paciente
+class RecetaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Receta 
+        fields = '__all__'  #trae todos los datos de la BD y cconvierte a JSON
