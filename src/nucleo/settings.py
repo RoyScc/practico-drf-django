@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/6.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
+import os
+from datetime import timedelta
 
 from pathlib import Path
+
+# from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pacientes',
+    'rest_framework_simplejwt',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +132,18 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication', 
+    ),
+  #  Configuración de Limitación de Peticiones (Throttling)
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle', # Limita a usuarios autenticados
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '10/m', # Límite: 10 peticiones por minuto por usuario
+    }
+}
+
