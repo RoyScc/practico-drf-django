@@ -1,11 +1,18 @@
 # 🏥 API REST - Centro Médico (Gestión de Pacientes y Recetas)
 
-Trabajo práctico evaluativo desarrollado con **Django** y **Django REST Framework (DRF)**. El sistema implementa una API REST para administrar pacientes y sus recetas médicas asociadas mediante serializadores anidados y Vistas Basadas en Clases (`APIView`).
+Trabajo práctico evaluativo desarrollado con **Django** y **Django REST Framework (DRF)**. El sistema implementa una API REST para administrar pacientes y sus recetas médicas asociadas mediante serializadores anidados, ViewSets y Autenticación JWT.
 
 ---
 
-## 🚀 Características hasta el momento (01/10 - Segundo practico) 
+## 🚀 Características y Evolución
 
+### Tercer Práctico (Octubre)
+* **ViewSets y Routers:** Reemplazo de vistas manuales por `ModelViewSet` (Pacientes) y `ReadOnlyModelViewSet` (Recetas) con enrutamiento automático mediante `DefaultRouter`.
+* **Autenticación JWT:** Seguridad en los endpoints implementada con `restframework-simplejwt`. Requiere token Bearer para acceder y modificar los datos.
+* **Throttling (Límite de Peticiones):** Configuración nativa en DRF para limitar las solicitudes a 10 por minuto por usuario (`UserRateThrottle`) previniendo abusos a la API.
+* **Panel de Administración Personalizado:** Modelos registrados en el panel de Django usando `ModelAdmin` con filtros, barras de búsqueda y visualización en columnas ordenadas.
+
+### Segundo Práctico (01/10) 
 * **Modelos Relacionados:** Relación uno a muchos (1:N) entre `Paciente` y `Receta` implementada con `ForeignKey`.
 * **Serializadores Anidados:** Inclusión automática de las recetas médicas asociadas dentro de la consulta detallada de cada paciente mediante `read_only=True`.
 * **Vistas Basadas en Clases:** Implementación de operaciones CRUD completas utilizando `APIView` (`get`, `post`, `put`, `delete`).
@@ -18,6 +25,7 @@ Trabajo práctico evaluativo desarrollado con **Django** y **Django REST Framewo
 * **Lenguaje:** Python 3.12
 * **Framework:** Django
 * **Toolkit:** Django REST Framework
+* **Seguridad:** Simple JWT
 * **Base de Datos:** SQLite3
 * **Gestor de Entorno y Paquetes:** `uv`
 * **Cliente REST para Pruebas:** Insomnia
@@ -30,17 +38,3 @@ Trabajo práctico evaluativo desarrollado con **Django** y **Django REST Framewo
    ```bash
    git clone [https://github.com/RoyScc/e-recetas.git](https://github.com/RoyScc/e-recetas.git)
    cd e-recetas
-
-2. **Acceder al directorio del proyecto e instalar dependencias:**
-cd src
-uv sync
-
-3. **Ejecutar migraciones de la base de datos:**
-uv run manage.py makemigrations
-uv run manage.py migrate
-
-4. **Iniciar el servidor local:**
-uv run manage.py runserver
-
-5. **FIN**
-### El servicio quedará disponible en: http://127.0.0.1:8000/
